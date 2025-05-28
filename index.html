@@ -9,20 +9,20 @@
     <style>
         body {
             margin: 0;
-            background: #222; /* Dark background for visibility */
+            background: #222;
             position: relative;
         }
         canvas {
             position: absolute;
             top: 0;
             left: 0;
-            z-index: -1; /* Place canvas behind content */
+            z-index: -1;
             width: 100%;
             height: 100%;
         }
         header, main {
             position: relative;
-            z-index: 1; /* Ensure content is above canvas */
+            z-index: 1;
         }
     </style>
 </head>
@@ -39,11 +39,11 @@
     </main>
     <script src="scripts.js"></script>
     <script>
-        // Get the canvas element and its context
+        // Canvas setup
         const canvas = document.getElementById('particleCanvas');
         const ctx = canvas.getContext('2d');
 
-        // Set canvas size to match window
+        // Set canvas size
         function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -53,62 +53,67 @@
         // Handle window resize
         window.addEventListener('resize', resizeCanvas);
 
-        // Particle class to define each particle's properties
+        // Particle class
         class Particle {
             constructor(x, y) {
                 this.x = x;
                 this.y = y;
-                this.size = Math.random() * 5 + 1; // Random size between 1 and 6
-                this.speedX = Math.random() * 2 - 1; // Random x velocity
-                this.speedY = Math.random() * 2 - 1; // Random y velocity
-                this.opacity = 1; // Start fully opaque
+                this.size = Math.random() * 5 + 1;
+                this.speedX = Math.random() * 2 - 1;
+                this.speedY = Math.random() * 2 - 1;
+                this.opacity = 1;
             }
 
             update() {
-                // Move particle
                 this.x += this.speedX;
                 this.y += this.speedY;
-                // Fade out particle
                 this.opacity -= 0.02;
-                // Reduce size slightly
                 this.size *= 0.98;
             }
 
             draw() {
-                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`; // White particles with fading opacity
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
             }
         }
 
-        // Array to store particles
+        // Particle array
         const particles = [];
+        let isDragging = false;
 
-        // Create particles at cursor position
+        // Create particles
         function createParticles(x, y) {
-            for (let i = 0; i < 5; i++) { // Create 5 particles per event
+            for (let i = 0; i < 5; i++) {
                 particles.push(new Particle(x, y));
             }
         }
 
-        // Handle mouse movement
+        // Mouse events
+        canvas.addEventListener('mousedown', () => {
+            isDragging = true;
+        });
+
+        canvas.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+
         canvas.addEventListener('mousemove', (e) => {
-            // Get mouse position relative to canvas
-            const rect = canvas.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            createParticles(x, y);
+            if (isDragging) {
+                const rect = canvas.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                createParticles(x, y);
+            }
         });
 
         // Animation loop
         function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
-            // Update and draw particles
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
             for (let i = particles.length - 1; i >= 0; i--) {
                 particles[i].update();
                 particles[i].draw();
-                // Remove particles that are too small or fully faded
                 if (particles[i].size < 0.2 || particles[i].opacity <= 0) {
                     particles.splice(i, 1);
                 }
@@ -116,7 +121,7 @@
             requestAnimationFrame(animate);
         }
 
-        // Start the animation
+        // Start animation
         animate();
     </script>
 </body>
