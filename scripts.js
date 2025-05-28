@@ -4,7 +4,6 @@ const scripts = [
     { name: "Grow a garden script", path: "scripts/Growagardenscript.lua" },
     { name: "Natural disaster ring script", path: "scripts/NDSringscript.lua" },
     { name: "Prison Life GUI", path: "scripts/prisonlife.lua" },
-    
 ];
 
 const scriptList = document.getElementById("script-list");
@@ -23,23 +22,3 @@ function displayScripts(filter = "") {
 
 searchInput.addEventListener("input", () => displayScripts(searchInput.value));
 displayScripts();
-end
-
-let isDragging = false;
-
-canvas.addEventListener('mousedown', () => {
-    isDragging = true;
-});
-
-canvas.addEventListener('mouseup', () => {
-    isDragging = false;
-});
-
-canvas.addEventListener('mousemove', (e) => {
-    if (isDragging) {
-        const rect = canvas.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        createParticles(x, y);
-    }
-});
