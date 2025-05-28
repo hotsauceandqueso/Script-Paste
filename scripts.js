@@ -3,7 +3,7 @@ const scripts = [
     { name: "Infinite Yield", path: "scripts/InfiniteYield.lua" },
     { name: "Grow a garden script", path: "scripts/Growagardenscript.lua" },
     { name: "Natural disaster ring script", path: "scripts/NDSringscript.lua" },
-    { name: "Prison Life GUI", path: "scripts/Prisonlife.lua" },
+    { name: "Prison Life GUI", path: "scripts/prisonlife.lua" },
     
 ];
 
