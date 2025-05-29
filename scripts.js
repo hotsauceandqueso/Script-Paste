@@ -24,3 +24,20 @@ function displayScripts(filter = "") {
 
 searchInput.addEventListener("input", () => displayScripts(searchInput.value));
 displayScripts();
+//
+const express = require('express');
+const app = express();
+
+app.use(express.urlencoded({ extended: true }));
+
+app.post('/upload', (req, res) => {
+  const { title, script } = req.body;
+  if (!title || !script) return res.status(400).send('Title and script required');
+  
+  // Save to database (e.g., MongoDB)
+  // Example: db.scripts.insert({ title, script, createdAt: new Date() });
+  
+  res.send('Script uploaded successfully');
+});
+
+app.listen(3000, () => console.log('Server running on port 3000'));
