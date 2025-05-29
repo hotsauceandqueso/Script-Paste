@@ -5,6 +5,7 @@ const scripts = [
     { name: "Natural disaster ring script", path: "scripts/NDSringscript.lua" },
     { name: "Prison Life GUI", path: "scripts/prisonlife.lua" },
     { name: "Chat Bypasser", path: "scripts/chatbypasser.lua" },
+    { name: "MM2 script", path: "scripts/MM2scripts.lua" },
 ];
 
 const scriptList = document.getElementById("script-list");
