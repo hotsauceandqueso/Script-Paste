@@ -11,6 +11,7 @@
             margin: 0;
             background: #222;
             position: relative;
+            font-family: Arial, sans-serif;
         }
         canvas {
             position: absolute;
@@ -23,6 +24,30 @@
         header, main {
             position: relative;
             z-index: 1;
+            max-width: 600px;
+            margin: 0 auto;
+            color: white;
+        }
+        .upload-form {
+            margin: 20px 0;
+        }
+        .upload-form input, .upload-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            background: #333;
+            color: white;
+            border: 1px solid #555;
+        }
+        .upload-form button {
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .upload-form button:hover {
+            background: #0056b3;
         }
     </style>
 </head>
@@ -33,6 +58,11 @@
         <input type="text" id="search" placeholder="Search scripts...">
     </header>
     <main>
+        <form class="upload-form" action="/upload" method="POST">
+            <input type="text" name="title" placeholder="Script Title" required>
+            <textarea name="script" placeholder="Enter your script" rows="10" required></textarea>
+            <button type="submit">Upload Script</button>
+        </form>
         <ul id="script-list">
             <!-- Script links will be populated here -->
         </ul>
